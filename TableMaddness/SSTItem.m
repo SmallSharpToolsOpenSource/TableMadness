@@ -28,6 +28,7 @@
     
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     NSString *uuidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+    CFRelease(uuid);
     item.identifier = uuidString;
 
     item.created = [NSDate date];
