@@ -91,87 +91,87 @@ typedef NSArray * (^FetchItemsBlock) ();
 }
 
 - (void)runNextUpdate {
-    if (index < self.dataSets.count) {
-        UILabel *label = (UILabel *)[self.tableView.tableHeaderView viewWithTag:1];
-        NSString *labelText = (NSString *)self.dataSets[index][@"label"];
-        label.text = labelText;
-        
-        FetchItemsBlock fetchItemsBlock = (FetchItemsBlock)self.dataSets[index][@"fetchItems"];
-        NSArray *fetchedItems = fetchItemsBlock();
-        
-        // determine items which need to be inserted, updated or removed
-        NSMutableArray *inserts = [@[] mutableCopy];
-        NSMutableArray *deletes = [@[] mutableCopy];
-        NSMutableArray *reloads = [@[] mutableCopy];
-        
-        // look for inserts
-        for (NSUInteger row=0; row<fetchedItems.count; row++) {
-            SSTItem *item = fetchedItems[row];
-            if (![self.currentItems containsObject:item]) {
-                // inserts are items which are not already in self.items
-                [inserts addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-            }
-            else {
-                NSUInteger otherIndex = [self.currentItems indexOfObject:item];
-                SSTItem *otherItem = [self.currentItems objectAtIndex:otherIndex];
-                if (![item.modified isEqualToDate:otherItem.modified]) {
-                    [reloads addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-                }
-            }
-        }
-        
-        // look for deletes
-        for (NSUInteger row=0; row<self.currentItems.count; row++) {
-            SSTItem *item = self.currentItems[row];
-            if (![fetchedItems containsObject:item]) {
-                [deletes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-            }
-        }
-        
-        static NSString *lock = @"LOCK";
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (kDelay / 4) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            // lock is required to prevent inconsistencies when changing view orientation during rotation
-            @synchronized(lock) {
-                self.currentItems = fetchedItems;
-                
-                NSUInteger numberOfRowsInSection = [self tableView:self.tableView numberOfRowsInSection:0];
-                DebugLog(@"numberOfRowsInSection: %li", numberOfRowsInSection);
-                DebugLog(@"self.items: %li", self.currentItems.count);
-                
-                MAAssert(self.currentItems.count == numberOfRowsInSection, @"Match is required");
-                
-                if (inserts.count || deletes.count || reloads.count) {
-                    [self.tableView beginUpdates];
-#ifndef NDEBUG
-                    for (NSIndexPath *indexPath in inserts) {
-                        DebugLog(@"Inserting at %li", (long)indexPath.row);
-                    }
-                    for (NSIndexPath *indexPath in deletes) {
-                        DebugLog(@"Deleting at %li", (long)indexPath.row);
-                    }
-                    for (NSIndexPath *indexPath in reloads) {
-                        DebugLog(@"Reloading at %li", (long)indexPath.row);
-                    }
-#endif
-                    [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [self.tableView deleteRowsAtIndexPaths:deletes withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [self.tableView reloadRowsAtIndexPaths:reloads withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [self.tableView endUpdates];
-                }
-            }
-            
-            index++;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self runNextUpdate];
-            });
-        });
-        
-    }
-    else {
+    if (index >= self.dataSets.count) {
         index = 0;
         [self runNextUpdate];
     }
+    
+    DebugLog(@"index: %lu", (unsigned long)index);
+    
+    UILabel *label = (UILabel *)[self.tableView.tableHeaderView viewWithTag:1];
+    NSString *labelText = (NSString *)self.dataSets[index][@"label"];
+    label.text = labelText;
+    
+    FetchItemsBlock fetchItemsBlock = (FetchItemsBlock)self.dataSets[index][@"fetchItems"];
+    NSArray *fetchedItems = fetchItemsBlock();
+    
+    // determine items which need to be inserted, updated or removed
+    NSMutableArray *inserts = [@[] mutableCopy];
+    NSMutableArray *deletes = [@[] mutableCopy];
+    NSMutableArray *reloads = [@[] mutableCopy];
+    
+    // look for inserts
+    for (NSUInteger row=0; row<fetchedItems.count; row++) {
+        SSTItem *item = fetchedItems[row];
+        if (![self.currentItems containsObject:item]) {
+            // inserts are items which are not already in self.items
+            [inserts addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        }
+        else {
+            NSUInteger otherIndex = [self.currentItems indexOfObject:item];
+            SSTItem *otherItem = [self.currentItems objectAtIndex:otherIndex];
+            if (![item.modified isEqualToDate:otherItem.modified]) {
+                [reloads addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+            }
+        }
+    }
+    
+    // look for deletes
+    for (NSUInteger row=0; row<self.currentItems.count; row++) {
+        SSTItem *item = self.currentItems[row];
+        if (![fetchedItems containsObject:item]) {
+            [deletes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        }
+    }
+    
+    static NSString *lock = @"LOCK";
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (kDelay / 4) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        // lock is required to prevent inconsistencies when changing view orientation during rotation
+        @synchronized(lock) {
+            self.currentItems = fetchedItems;
+            
+            NSUInteger numberOfRowsInSection = [self tableView:self.tableView numberOfRowsInSection:0];
+            DebugLog(@"numberOfRowsInSection: %li", (unsigned long)numberOfRowsInSection);
+            DebugLog(@"self.items: %li", (unsigned long)self.currentItems.count);
+            
+            MAAssert(self.currentItems.count == numberOfRowsInSection, @"Match is required");
+            
+            if (inserts.count || deletes.count || reloads.count) {
+                [self.tableView beginUpdates];
+#ifndef NDEBUG
+                for (NSIndexPath *indexPath in inserts) {
+                    DebugLog(@"Inserting at %li", (long)indexPath.row);
+                }
+                for (NSIndexPath *indexPath in deletes) {
+                    DebugLog(@"Deleting at %li", (long)indexPath.row);
+                }
+                for (NSIndexPath *indexPath in reloads) {
+                    DebugLog(@"Reloading at %li", (long)indexPath.row);
+                }
+#endif
+                [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView deleteRowsAtIndexPaths:deletes withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView reloadRowsAtIndexPaths:reloads withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+            }
+        }
+        
+        index++;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self runNextUpdate];
+        });
+    });
 }
 
 #pragma mark - UITableViewDataSource
