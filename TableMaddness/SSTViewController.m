@@ -25,6 +25,7 @@ typedef NSArray * (^FetchItemsBlock) ();
 
 @implementation SSTViewController {
     NSUInteger index;
+    BOOL isUpdatingTable;
 }
 
 #pragma mark - View Lifecycle
@@ -91,12 +92,19 @@ typedef NSArray * (^FetchItemsBlock) ();
 }
 
 - (void)runNextUpdate {
-    if (index >= self.dataSets.count) {
-        index = 0;
-        [self runNextUpdate];
+    if (isUpdatingTable) {
+        DebugLog(@"Update is already running, trying again later.");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self runNextUpdate];
+        });
+        return;
     }
     
-    DebugLog(@"index: %lu", (unsigned long)index);
+    isUpdatingTable = TRUE;
+    
+    if (index >= self.dataSets.count) {
+        index = 0;
+    }
     
     UILabel *label = (UILabel *)[self.tableView.tableHeaderView viewWithTag:1];
     NSString *labelText = (NSString *)self.dataSets[index][@"label"];
@@ -141,11 +149,12 @@ typedef NSArray * (^FetchItemsBlock) ();
         @synchronized(lock) {
             self.currentItems = fetchedItems;
             
+#ifndef NDEBUG
             NSUInteger numberOfRowsInSection = [self tableView:self.tableView numberOfRowsInSection:0];
             DebugLog(@"numberOfRowsInSection: %li", (unsigned long)numberOfRowsInSection);
             DebugLog(@"self.items: %li", (unsigned long)self.currentItems.count);
-            
             MAAssert(self.currentItems.count == numberOfRowsInSection, @"Match is required");
+#endif
             
             if (inserts.count || deletes.count || reloads.count) {
                 [self.tableView beginUpdates];
@@ -169,6 +178,7 @@ typedef NSArray * (^FetchItemsBlock) ();
         
         index++;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            isUpdatingTable = FALSE;
             [self runNextUpdate];
         });
     });
