@@ -22,9 +22,11 @@
 #pragma mark - Static Constructors
 #pragma mark -
 
-+ (SSTItem *)itemWithNumber:(NSNumber *)number {
++ (SSTItem *)itemWithNumber:(NSNumber *)number height:(CGFloat)height color:(UIColor *)color {
     SSTItem *item = [[SSTItem alloc] init];
     item.number = number;
+    item.height = height > 0 ? height : 44.0f;
+    item.color = color ? color : [UIColor blackColor];
     
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     NSString *uuidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
@@ -37,27 +39,14 @@
     return item;
 }
 
-+ (NSArray *)itemsWithNumbers:(NSArray *)numbers {
-    NSMutableArray *items = [@[] mutableCopy];
-    for (NSNumber *number in numbers) {
-        SSTItem *item = [SSTItem itemWithNumber:number];
-        [items addObject:item];
-    }
-    
-    return items;
-}
-
 #pragma mark - Public
 #pragma mark -
 
-- (void)changeNumber:(NSNumber *)number {
-    self.number = number;
-    self.modified = [NSDate date];
-}
-
 - (SSTItem *)copyItemWithChangedNumber:(NSNumber *)number {
     SSTItem *copied = [self copy];
-    [copied changeNumber:number];
+    copied.number = number;
+    copied.modified = [NSDate date];
+    
     return copied;
 }
 
@@ -85,6 +74,8 @@
     
     copied.identifier = self.identifier;
     copied.number = self.number;
+    copied.height = self.height;
+    copied.color = self.color;
     copied.created = self.created;
     copied.modified = self.modified;
     

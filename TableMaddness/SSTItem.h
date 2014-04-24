@@ -11,13 +11,13 @@
 @interface SSTItem : NSObject
 
 @property (strong, nonatomic) NSNumber *number;
+@property (assign, nonatomic) CGFloat height;
+@property (strong, nonatomic) UIColor *color;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSDate *modified;
 
-+ (SSTItem *)itemWithNumber:(NSNumber *)number;
-+ (NSArray *)itemsWithNumbers:(NSArray *)numbers;
++ (SSTItem *)itemWithNumber:(NSNumber *)number height:(CGFloat)height color:(UIColor *)color;
 
-- (void)changeNumber:(NSNumber *)number;
 - (SSTItem *)copyItemWithChangedNumber:(NSNumber *)number;
 
 @end
