@@ -1,0 +1,489 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		263360ED1826CDCF00D18300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360EC1826CDCF00D18300 /* Foundation.framework */; };
+		263360EF1826CDCF00D18300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360EE1826CDCF00D18300 /* CoreGraphics.framework */; };
+		263360F11826CDCF00D18300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360F01826CDCF00D18300 /* UIKit.framework */; };
+		263360F71826CDCF00D18300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 263360F51826CDCF00D18300 /* InfoPlist.strings */; };
+		263360F91826CDCF00D18300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 263360F81826CDCF00D18300 /* main.m */; };
+		263360FD1826CDCF00D18300 /* SSTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 263360FC1826CDCF00D18300 /* SSTAppDelegate.m */; };
+		263361001826CDCF00D18300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 263360FE1826CDCF00D18300 /* Main.storyboard */; };
+		263361031826CDCF00D18300 /* SSTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 263361021826CDCF00D18300 /* SSTViewController.m */; };
+		263361051826CDCF00D18300 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 263361041826CDCF00D18300 /* Images.xcassets */; };
+		2633610C1826CDCF00D18300 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2633610B1826CDCF00D18300 /* XCTest.framework */; };
+		2633610D1826CDCF00D18300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360EC1826CDCF00D18300 /* Foundation.framework */; };
+		2633610E1826CDCF00D18300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360F01826CDCF00D18300 /* UIKit.framework */; };
+		263361161826CDCF00D18300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 263361141826CDCF00D18300 /* InfoPlist.strings */; };
+		263361181826CDCF00D18300 /* TableMadnessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 263361171826CDCF00D18300 /* TableMadnessTests.m */; };
+		2669D49618286271003F0698 /* SSTItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669D49518286271003F0698 /* SSTItem.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2633610F1826CDCF00D18300 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 263360E11826CDCE00D18300 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 263360E81826CDCF00D18300;
+			remoteInfo = TableMadness;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		263360E91826CDCF00D18300 /* TableMadness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableMadness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		263360EC1826CDCF00D18300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		263360EE1826CDCF00D18300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		263360F01826CDCF00D18300 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		263360F41826CDCF00D18300 /* TableMadness-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TableMadness-Info.plist"; sourceTree = "<group>"; };
+		263360F61826CDCF00D18300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		263360F81826CDCF00D18300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		263360FA1826CDCF00D18300 /* TableMadness-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TableMadness-Prefix.pch"; sourceTree = "<group>"; };
+		263360FB1826CDCF00D18300 /* SSTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSTAppDelegate.h; sourceTree = "<group>"; };
+		263360FC1826CDCF00D18300 /* SSTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSTAppDelegate.m; sourceTree = "<group>"; };
+		263360FF1826CDCF00D18300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		263361011826CDCF00D18300 /* SSTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSTViewController.h; sourceTree = "<group>"; };
+		263361021826CDCF00D18300 /* SSTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSTViewController.m; sourceTree = "<group>"; };
+		263361041826CDCF00D18300 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2633610A1826CDCF00D18300 /* TableMadnessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableMadnessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2633610B1826CDCF00D18300 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		263361131826CDCF00D18300 /* TableMadnessTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TableMadnessTests-Info.plist"; sourceTree = "<group>"; };
+		263361151826CDCF00D18300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		263361171826CDCF00D18300 /* TableMadnessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableMadnessTests.m; sourceTree = "<group>"; };
+		2669D49418286271003F0698 /* SSTItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTItem.h; sourceTree = "<group>"; };
+		2669D49518286271003F0698 /* SSTItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTItem.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		263360E61826CDCF00D18300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263360EF1826CDCF00D18300 /* CoreGraphics.framework in Frameworks */,
+				263360F11826CDCF00D18300 /* UIKit.framework in Frameworks */,
+				263360ED1826CDCF00D18300 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		263361071826CDCF00D18300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2633610C1826CDCF00D18300 /* XCTest.framework in Frameworks */,
+				2633610E1826CDCF00D18300 /* UIKit.framework in Frameworks */,
+				2633610D1826CDCF00D18300 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		263360E01826CDCE00D18300 = {
+			isa = PBXGroup;
+			children = (
+				263360F21826CDCF00D18300 /* TableMadness */,
+				263361111826CDCF00D18300 /* TableMadnessTests */,
+				263360EB1826CDCF00D18300 /* Frameworks */,
+				263360EA1826CDCF00D18300 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		263360EA1826CDCF00D18300 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				263360E91826CDCF00D18300 /* TableMadness.app */,
+				2633610A1826CDCF00D18300 /* TableMadnessTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		263360EB1826CDCF00D18300 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				263360EC1826CDCF00D18300 /* Foundation.framework */,
+				263360EE1826CDCF00D18300 /* CoreGraphics.framework */,
+				263360F01826CDCF00D18300 /* UIKit.framework */,
+				2633610B1826CDCF00D18300 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		263360F21826CDCF00D18300 /* TableMadness */ = {
+			isa = PBXGroup;
+			children = (
+				263360F31826CDCF00D18300 /* Supporting Files */,
+				263360FB1826CDCF00D18300 /* SSTAppDelegate.h */,
+				263360FC1826CDCF00D18300 /* SSTAppDelegate.m */,
+				263360FE1826CDCF00D18300 /* Main.storyboard */,
+				263361011826CDCF00D18300 /* SSTViewController.h */,
+				263361021826CDCF00D18300 /* SSTViewController.m */,
+				2669D49418286271003F0698 /* SSTItem.h */,
+				2669D49518286271003F0698 /* SSTItem.m */,
+			);
+			path = TableMadness;
+			sourceTree = "<group>";
+		};
+		263360F31826CDCF00D18300 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				263360F41826CDCF00D18300 /* TableMadness-Info.plist */,
+				263360F51826CDCF00D18300 /* InfoPlist.strings */,
+				263360F81826CDCF00D18300 /* main.m */,
+				263360FA1826CDCF00D18300 /* TableMadness-Prefix.pch */,
+				263361041826CDCF00D18300 /* Images.xcassets */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		263361111826CDCF00D18300 /* TableMadnessTests */ = {
+			isa = PBXGroup;
+			children = (
+				263361171826CDCF00D18300 /* TableMadnessTests.m */,
+				263361121826CDCF00D18300 /* Supporting Files */,
+			);
+			path = TableMadnessTests;
+			sourceTree = "<group>";
+		};
+		263361121826CDCF00D18300 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				263361131826CDCF00D18300 /* TableMadnessTests-Info.plist */,
+				263361141826CDCF00D18300 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		263360E81826CDCF00D18300 /* TableMadness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2633611B1826CDCF00D18300 /* Build configuration list for PBXNativeTarget "TableMadness" */;
+			buildPhases = (
+				263360E51826CDCF00D18300 /* Sources */,
+				263360E61826CDCF00D18300 /* Frameworks */,
+				263360E71826CDCF00D18300 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TableMadness;
+			productName = TableMadness;
+			productReference = 263360E91826CDCF00D18300 /* TableMadness.app */;
+			productType = "com.apple.product-type.application";
+		};
+		263361091826CDCF00D18300 /* TableMadnessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2633611E1826CDCF00D18300 /* Build configuration list for PBXNativeTarget "TableMadnessTests" */;
+			buildPhases = (
+				263361061826CDCF00D18300 /* Sources */,
+				263361071826CDCF00D18300 /* Frameworks */,
+				263361081826CDCF00D18300 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				263361101826CDCF00D18300 /* PBXTargetDependency */,
+			);
+			name = TableMadnessTests;
+			productName = TableMadnessTests;
+			productReference = 2633610A1826CDCF00D18300 /* TableMadnessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		263360E11826CDCE00D18300 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SST;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "SmallSharpTools LLC";
+				TargetAttributes = {
+					263361091826CDCF00D18300 = {
+						TestTargetID = 263360E81826CDCF00D18300;
+					};
+				};
+			};
+			buildConfigurationList = 263360E41826CDCE00D18300 /* Build configuration list for PBXProject "TableMadness" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 263360E01826CDCE00D18300;
+			productRefGroup = 263360EA1826CDCF00D18300 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				263360E81826CDCF00D18300 /* TableMadness */,
+				263361091826CDCF00D18300 /* TableMadnessTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		263360E71826CDCF00D18300 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263361051826CDCF00D18300 /* Images.xcassets in Resources */,
+				263360F71826CDCF00D18300 /* InfoPlist.strings in Resources */,
+				263361001826CDCF00D18300 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		263361081826CDCF00D18300 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263361161826CDCF00D18300 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		263360E51826CDCF00D18300 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263360F91826CDCF00D18300 /* main.m in Sources */,
+				2669D49618286271003F0698 /* SSTItem.m in Sources */,
+				263360FD1826CDCF00D18300 /* SSTAppDelegate.m in Sources */,
+				263361031826CDCF00D18300 /* SSTViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		263361061826CDCF00D18300 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263361181826CDCF00D18300 /* TableMadnessTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		263361101826CDCF00D18300 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 263360E81826CDCF00D18300 /* TableMadness */;
+			targetProxy = 2633610F1826CDCF00D18300 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		263360F51826CDCF00D18300 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				263360F61826CDCF00D18300 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		263360FE1826CDCF00D18300 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				263360FF1826CDCF00D18300 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		263361141826CDCF00D18300 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				263361151826CDCF00D18300 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		263361191826CDCF00D18300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2633611A1826CDCF00D18300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNDEBUG=1",
+					"-DNS_BLOCK_ASSERTIONS=1",
+				);
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2633611C1826CDCF00D18300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TableMadness/TableMadness-Prefix.pch";
+				INFOPLIST_FILE = "TableMadness/TableMadness-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2633611D1826CDCF00D18300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TableMadness/TableMadness-Prefix.pch";
+				INFOPLIST_FILE = "TableMadness/TableMadness-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2633611F1826CDCF00D18300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TableMadness.app/TableMadness";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TableMadness/TableMadness-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TableMadnessTests/TableMadnessTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		263361201826CDCF00D18300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TableMadness.app/TableMadness";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TableMadness/TableMadness-Prefix.pch";
+				INFOPLIST_FILE = "TableaddnessTests/TableMadnessTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		263360E41826CDCE00D18300 /* Build configuration list for PBXProject "TableMadness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				263361191826CDCF00D18300 /* Debug */,
+				2633611A1826CDCF00D18300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2633611B1826CDCF00D18300 /* Build configuration list for PBXNativeTarget "TableMadness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2633611C1826CDCF00D18300 /* Debug */,
+				2633611D1826CDCF00D18300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2633611E1826CDCF00D18300 /* Build configuration list for PBXNativeTarget "TableMadnessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2633611F1826CDCF00D18300 /* Debug */,
+				263361201826CDCF00D18300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 263360E11826CDCE00D18300 /* Project object */;
+}
