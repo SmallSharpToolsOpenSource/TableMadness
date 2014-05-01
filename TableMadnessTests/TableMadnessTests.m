@@ -1,6 +1,6 @@
 //
-//  TableMaddnessTests.m
-//  TableMaddnessTests
+//  TableMadnessTests.m
+//  TableMadnessTests
 //
 //  Created by Brennan Stehling on 11/3/13.
 //  Copyright (c) 2013 SmallSharpTools LLC. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface TableMaddnessTests : XCTestCase
+@interface TableMadnessTests : XCTestCase
 
 @end
 
-@implementation TableMaddnessTests
+@implementation TableMadnessTests
 
 - (void)setUp
 {

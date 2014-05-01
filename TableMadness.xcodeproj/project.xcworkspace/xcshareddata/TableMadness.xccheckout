@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7317CABC-93EF-4134-AC8D-AD418E4A680F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TableMadness</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D9CD8AB8-D827-4E6D-BC4E-8EC61B01E183</key>
+		<string>https://github.com/brennanMKE/TableMadness.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TableMadness.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D9CD8AB8-D827-4E6D-BC4E-8EC61B01E183</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/brennanMKE/TableMadness.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D9CD8AB8-D827-4E6D-BC4E-8EC61B01E183</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D9CD8AB8-D827-4E6D-BC4E-8EC61B01E183</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TableMadness</string>
+		</dict>
+	</array>
+</dict>
+</plist>

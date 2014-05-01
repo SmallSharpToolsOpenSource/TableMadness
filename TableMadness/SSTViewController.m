@@ -1,6 +1,6 @@
 //
 //  SSTViewController.m
-//  TableMaddness
+//  TableMadness
 //
 //  Created by Brennan Stehling on 11/3/13.
 //  Copyright (c) 2013 SmallSharpTools LLC. All rights reserved.
@@ -21,7 +21,7 @@ typedef NSArray * (^FetchItemsBlock) ();
 
 @end
 
-#define kDelay 1.0
+#define kDelay 1.5
 
 @implementation SSTViewController {
     NSUInteger index;
@@ -54,41 +54,45 @@ typedef NSArray * (^FetchItemsBlock) ();
 #pragma mark -
 
 - (void)populateDataSets {
-    SSTItem *item1 = [SSTItem itemWithNumber:@1];
-    SSTItem *item2 = [SSTItem itemWithNumber:@2];
-    SSTItem *item3 = [SSTItem itemWithNumber:@3];
-    SSTItem *item4 = [SSTItem itemWithNumber:@4];
+    UIColor *baseColor = [UIColor colorWithRed:0.27 green:0.56 blue:0.80 alpha:1.0];
+    UIColor *lighterColor = [self lighterColorForColor:baseColor];
+    UIColor *darkerColor = [self darkerColorForColor:baseColor];
+    
+    SSTItem *item1 = [SSTItem itemWithNumber:@1 height:54.0f color:baseColor];
+    SSTItem *item2 = [SSTItem itemWithNumber:@2 height:34.0f color:lighterColor];
+    SSTItem *item3 = [SSTItem itemWithNumber:@3 height:64.0f color:darkerColor];
+    SSTItem *item4 = [SSTItem itemWithNumber:@4 height:44.0f color:lighterColor];
+    
+    SSTItem *item1alt = [item1 copyItemWithChangedNumber:@99];
+    SSTItem *item2alt = [item2 copyItemWithChangedNumber:@99];
+    SSTItem *item3alt = [item3 copyItemWithChangedNumber:@99];
+    SSTItem *item4alt = [item4 copyItemWithChangedNumber:@99];
+    
+    self.currentItems = @[item1, item3, item4];
     
     self.dataSets = @[
                       @{@"label" : @"add 2", @"fetchItems" : ^{
                           return @[item1, item2, item3, item4];
-                      }},
+                      }, @"height" : @44.0f},
                       @{@"label" : @"remove 3", @"fetchItems" : ^{
                           return @[item1, item2, item4];
-                      }},
+                      }, @"height" : @44.0f},
                       @{@"label" : @"remove 1", @"fetchItems" : ^{
                           return @[item2, item4];
-                      }},
+                      }, @"height" : @44.0f},
                       @{@"label" : @"add all 4", @"fetchItems" : ^{
                           return @[item1, item2, item3, item4];
-                      }},
+                      }, @"height" : @44.0f},
                       @{@"label" : @"update to 99", @"fetchItems" : ^{
-                          return @[
-                                   [item1 copyItemWithChangedNumber:@99],
-                                   [item2 copyItemWithChangedNumber:@99],
-                                   [item3 copyItemWithChangedNumber:@99],
-                                   [item4 copyItemWithChangedNumber:@99]
-                                   ];
-                      }},
-                      @{@"label" : @"return to normal", @"fetchItems" : ^{
+                          return @[item1alt, item2alt, item3alt, item4alt];
+                      }, @"height" : @44.0f},
+                      @{@"label" : @"return to standard", @"fetchItems" : ^{
                           return @[item1, item2, item3, item4];
-                      }},
+                      }, @"height" : @44.0f},
                       @{@"label" : @"remove 2", @"fetchItems" : ^{
                           return @[item1, item3, item4];
-                      }},
-                      ];
-    
-    self.currentItems = @[item1, item3, item4];
+                      }, @"height" : @44.0f},
+                    ];
 }
 
 - (void)runNextUpdate {
@@ -144,6 +148,15 @@ typedef NSArray * (^FetchItemsBlock) ();
     
     static NSString *lock = @"LOCK";
     
+    void (^completionBlock)(void) = ^void() {
+        DebugLog(@"Completed!");
+        index++;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            isUpdatingTable = FALSE;
+            [self runNextUpdate];
+        });
+    };
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (kDelay / 4) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         // lock is required to prevent inconsistencies when changing view orientation during rotation
         @synchronized(lock) {
@@ -157,7 +170,6 @@ typedef NSArray * (^FetchItemsBlock) ();
 #endif
             
             if (inserts.count || deletes.count || reloads.count) {
-                [self.tableView beginUpdates];
 #ifndef NDEBUG
                 for (NSIndexPath *indexPath in inserts) {
                     DebugLog(@"Inserting at %li", (long)indexPath.row);
@@ -169,19 +181,41 @@ typedef NSArray * (^FetchItemsBlock) ();
                     DebugLog(@"Reloading at %li", (long)indexPath.row);
                 }
 #endif
+                [CATransaction begin];
+                [CATransaction setCompletionBlock:completionBlock];
+                [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView deleteRowsAtIndexPaths:deletes withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView reloadRowsAtIndexPaths:reloads withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView endUpdates];
+                [CATransaction commit];
+            }
+            else {
+                completionBlock();
             }
         }
         
-        index++;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            isUpdatingTable = FALSE;
-            [self runNextUpdate];
-        });
     });
+}
+
+- (UIColor *)lighterColorForColor:(UIColor *)c {
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MIN(r + 0.2, 1.0)
+                               green:MIN(g + 0.2, 1.0)
+                                blue:MIN(b + 0.2, 1.0)
+                               alpha:a];
+    return nil;
+}
+
+- (UIColor *)darkerColorForColor:(UIColor *)c {
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                               green:MAX(g - 0.2, 0.0)
+                                blue:MAX(b - 0.2, 0.0)
+                               alpha:a];
+    return nil;
 }
 
 #pragma mark - UITableViewDataSource
@@ -199,12 +233,19 @@ typedef NSArray * (^FetchItemsBlock) ();
     SSTItem *item = self.currentItems[indexPath.row];
     NSNumber *number = item.number;
     UILabel *label = (UILabel *)[cell viewWithTag:1];
-    label.text = [NSString stringWithFormat:@"%li", (long)[number integerValue]];
+//    label.textColor = item.color;
+    cell.backgroundColor = item.color;
+    label.text = [NSString stringWithFormat:@"Item %li", (long)[number integerValue]];
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 #pragma mark -
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SSTItem *item = self.currentItems[indexPath.row];
+    return item.height;
+}
 
 @end

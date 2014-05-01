@@ -1,6 +1,6 @@
 //
 //  SSTAppDelegate.m
-//  TableMaddness
+//  TableMadness
 //
 //  Created by Brennan Stehling on 11/3/13.
 //  Copyright (c) 2013 SmallSharpTools LLC. All rights reserved.
