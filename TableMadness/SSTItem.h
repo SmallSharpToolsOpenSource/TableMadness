@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SSTItem : NSObject
+#import "SSTTableViewUpdater.h"
+
+@interface SSTItem : NSObject <TableViewDataRow>
 
 @property (strong, nonatomic) NSNumber *number;
 @property (assign, nonatomic) CGFloat height;
@@ -19,5 +21,7 @@
 + (SSTItem *)itemWithNumber:(NSNumber *)number height:(CGFloat)height color:(UIColor *)color;
 
 - (SSTItem *)copyItemWithChangedNumber:(NSNumber *)number;
+
+- (BOOL)isEqualToItem:(SSTItem *)otherItem;
 
 @end

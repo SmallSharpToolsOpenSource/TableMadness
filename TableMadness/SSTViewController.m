@@ -8,24 +8,29 @@
 
 #import "SSTViewController.h"
 
+#import "SSTTableViewUpdater.h"
+
 #import "SSTItem.h"
 
 typedef NSArray * (^FetchItemsBlock) ();
 
-@interface SSTViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SSTViewController () <UITableViewDataSource, UITableViewDelegate, SSTTableViewUpdaterDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet SSTTableViewUpdater *tableViewUpdater;
 
 @property (strong, nonatomic) NSArray *currentItems;
 @property (strong, nonatomic) NSArray *dataSets;
 
 @end
 
-#define kDelay 1.5
+#define kSlowDelay 1.5
+#define kFastDelay 0.01
 
 @implementation SSTViewController {
     NSUInteger index;
     BOOL isUpdatingTable;
+    BOOL goFast;
 }
 
 #pragma mark - View Lifecycle
@@ -45,9 +50,23 @@ typedef NSArray * (^FetchItemsBlock) ();
     label.text = nil;
     
     index = 0;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self runNextUpdate];
-    });
+}
+
+#pragma mark - User Actions
+#pragma mark -
+
+- (IBAction)updateTapped:(id)sender {
+    [self runNextUpdate];
+}
+
+- (IBAction)goFastTapped:(UIBarButtonItem *)buttonItem {
+    goFast = !goFast;
+    if (goFast) {
+        [buttonItem setTitle:@"Go Slow"];
+    }
+    else {
+        [buttonItem setTitle:@"Go Fast"];
+    }
 }
 
 #pragma mark - Private
@@ -68,7 +87,7 @@ typedef NSArray * (^FetchItemsBlock) ();
     SSTItem *item3alt = [item3 copyItemWithChangedNumber:@99];
     SSTItem *item4alt = [item4 copyItemWithChangedNumber:@99];
     
-    self.currentItems = @[item1, item3, item4];
+    [self.tableViewUpdater reloadData:@[item1, item3, item4]];
     
     self.dataSets = @[
                       @{@"label" : @"add 2", @"fetchItems" : ^{
@@ -96,106 +115,19 @@ typedef NSArray * (^FetchItemsBlock) ();
 }
 
 - (void)runNextUpdate {
-    if (isUpdatingTable) {
-        DebugLog(@"Update is already running, trying again later.");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self runNextUpdate];
-        });
-        return;
-    }
-    
-    isUpdatingTable = TRUE;
-    
     if (index >= self.dataSets.count) {
         index = 0;
     }
+    
+    FetchItemsBlock fetchItemsBlock = (FetchItemsBlock)self.dataSets[index][@"fetchItems"];
+    NSArray *fetchedItems = fetchItemsBlock();
+    [self.tableViewUpdater updateData:fetchedItems];
     
     UILabel *label = (UILabel *)[self.tableView.tableHeaderView viewWithTag:1];
     NSString *labelText = (NSString *)self.dataSets[index][@"label"];
     label.text = labelText;
     
-    FetchItemsBlock fetchItemsBlock = (FetchItemsBlock)self.dataSets[index][@"fetchItems"];
-    NSArray *fetchedItems = fetchItemsBlock();
-    
-    // determine items which need to be inserted, updated or removed
-    NSMutableArray *inserts = [@[] mutableCopy];
-    NSMutableArray *deletes = [@[] mutableCopy];
-    NSMutableArray *reloads = [@[] mutableCopy];
-    
-    // look for inserts
-    for (NSUInteger row=0; row<fetchedItems.count; row++) {
-        SSTItem *item = fetchedItems[row];
-        if (![self.currentItems containsObject:item]) {
-            // inserts are items which are not already in self.items
-            [inserts addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-        }
-        else {
-            NSUInteger otherIndex = [self.currentItems indexOfObject:item];
-            SSTItem *otherItem = [self.currentItems objectAtIndex:otherIndex];
-            if (![item.modified isEqualToDate:otherItem.modified]) {
-                [reloads addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-            }
-        }
-    }
-    
-    // look for deletes
-    for (NSUInteger row=0; row<self.currentItems.count; row++) {
-        SSTItem *item = self.currentItems[row];
-        if (![fetchedItems containsObject:item]) {
-            [deletes addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-        }
-    }
-    
-    static NSString *lock = @"LOCK";
-    
-    void (^completionBlock)(void) = ^void() {
-        DebugLog(@"Completed!");
-        index++;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kDelay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            isUpdatingTable = FALSE;
-            [self runNextUpdate];
-        });
-    };
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (kDelay / 4) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        // lock is required to prevent inconsistencies when changing view orientation during rotation
-        @synchronized(lock) {
-            self.currentItems = fetchedItems;
-            
-#ifndef NDEBUG
-            NSUInteger numberOfRowsInSection = [self tableView:self.tableView numberOfRowsInSection:0];
-            DebugLog(@"numberOfRowsInSection: %li", (unsigned long)numberOfRowsInSection);
-            DebugLog(@"self.items: %li", (unsigned long)self.currentItems.count);
-            MAAssert(self.currentItems.count == numberOfRowsInSection, @"Match is required");
-#endif
-            
-            if (inserts.count || deletes.count || reloads.count) {
-#ifndef NDEBUG
-                for (NSIndexPath *indexPath in inserts) {
-                    DebugLog(@"Inserting at %li", (long)indexPath.row);
-                }
-                for (NSIndexPath *indexPath in deletes) {
-                    DebugLog(@"Deleting at %li", (long)indexPath.row);
-                }
-                for (NSIndexPath *indexPath in reloads) {
-                    DebugLog(@"Reloading at %li", (long)indexPath.row);
-                }
-#endif
-                [CATransaction begin];
-                [CATransaction setCompletionBlock:completionBlock];
-                [self.tableView beginUpdates];
-                [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView deleteRowsAtIndexPaths:deletes withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView reloadRowsAtIndexPaths:reloads withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView endUpdates];
-                [CATransaction commit];
-            }
-            else {
-                completionBlock();
-            }
-        }
-        
-    });
+    index++;
 }
 
 - (UIColor *)lighterColorForColor:(UIColor *)c {
@@ -222,7 +154,6 @@ typedef NSArray * (^FetchItemsBlock) ();
 #pragma mark -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    DebugLog(@"self.items.count: %lu", (unsigned long)self.currentItems.count);
     return  self.currentItems.count;
 }
 
@@ -233,7 +164,6 @@ typedef NSArray * (^FetchItemsBlock) ();
     SSTItem *item = self.currentItems[indexPath.row];
     NSNumber *number = item.number;
     UILabel *label = (UILabel *)[cell viewWithTag:1];
-//    label.textColor = item.color;
     cell.backgroundColor = item.color;
     label.text = [NSString stringWithFormat:@"Item %li", (long)[number integerValue]];
     
@@ -246,6 +176,25 @@ typedef NSArray * (^FetchItemsBlock) ();
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SSTItem *item = self.currentItems[indexPath.row];
     return item.height;
+}
+
+#pragma mark - SSTTableViewUpdaterDelegate
+#pragma mark -
+
+- (NSArray *)tableViewUpdaterCurrentTableData:(SSTTableViewUpdater *)updatableTableView {
+    return self.currentItems;
+}
+
+- (void)tableViewUpdater:(SSTTableViewUpdater *)updatableTableView willUpdateWithData:(NSArray *)data {
+    self.currentItems = data;
+}
+
+- (void)tableViewUpdater:(SSTTableViewUpdater *)updatableTableView didUpdateWithData:(NSArray *)data {
+    if (![self.tableViewUpdater hasPendingUpdate])  {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (goFast ? kFastDelay : kSlowDelay) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self runNextUpdate];
+        });
+    }
 }
 
 @end

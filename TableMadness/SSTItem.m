@@ -50,6 +50,10 @@
     return copied;
 }
 
+- (BOOL)isEqualToItem:(SSTItem *)otherItem {
+    return [self isEqual:otherItem];
+}
+
 #pragma mark - Base Overrides
 #pragma mark -
 
@@ -80,6 +84,20 @@
     copied.modified = self.modified;
     
     return copied;
+}
+
+#pragma mark - TableViewDataRow
+#pragma mark -
+
+- (BOOL)changedFromOtherItem:(id<TableViewDataRow>)otherItem {
+    if ([self isEqual:otherItem]) {
+        SSTItem *one = (SSTItem *)self;
+        SSTItem *other = (SSTItem *)otherItem;
+        
+        return ![one.modified isEqualToDate:other.modified];
+    }
+    
+    return FALSE;
 }
 
 @end
