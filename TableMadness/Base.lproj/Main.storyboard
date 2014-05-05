@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="N0a-RX-MFk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="N0a-RX-MFk">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -77,12 +77,30 @@
                             <constraint firstItem="44L-r9-vfH" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="b1A-k3-gul"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Table Maddness" id="XOD-jx-ydC"/>
+                    <navigationItem key="navigationItem" title="Table Maddness" id="XOD-jx-ydC">
+                        <barButtonItem key="leftBarButtonItem" title="Update" id="NUm-gZ-uV8">
+                            <connections>
+                                <action selector="updateTapped:" destination="vXZ-lx-hvc" id="zEx-HY-QZz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Go Fast" id="Fcs-bi-WDg">
+                            <connections>
+                                <action selector="goFastTapped:" destination="vXZ-lx-hvc" id="cOL-Ur-Wwg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="44L-r9-vfH" id="7fC-x8-jkh"/>
+                        <outlet property="tableViewUpdater" destination="9Ec-mG-6tj" id="klf-5x-eaL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <customObject id="9Ec-mG-6tj" customClass="SSTTableViewUpdater">
+                    <connections>
+                        <outlet property="tableView" destination="44L-r9-vfH" id="qhm-6Y-dSN"/>
+                        <outlet property="tableViewUpdaterDelegate" destination="vXZ-lx-hvc" id="wzh-3U-M04"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="660" y="111"/>
         </scene>

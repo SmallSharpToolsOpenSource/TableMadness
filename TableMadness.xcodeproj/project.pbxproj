@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		261E57741916F1020044F496 /* SSTTableViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 261E57731916F1020044F496 /* SSTTableViewUpdater.m */; };
 		263360ED1826CDCF00D18300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360EC1826CDCF00D18300 /* Foundation.framework */; };
 		263360EF1826CDCF00D18300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360EE1826CDCF00D18300 /* CoreGraphics.framework */; };
 		263360F11826CDCF00D18300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263360F01826CDCF00D18300 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		261E57721916F1020044F496 /* SSTTableViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTTableViewUpdater.h; sourceTree = "<group>"; };
+		261E57731916F1020044F496 /* SSTTableViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTTableViewUpdater.m; sourceTree = "<group>"; };
 		263360E91826CDCF00D18300 /* TableMadness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableMadness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		263360EC1826CDCF00D18300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		263360EE1826CDCF00D18300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 				263361021826CDCF00D18300 /* SSTViewController.m */,
 				2669D49418286271003F0698 /* SSTItem.h */,
 				2669D49518286271003F0698 /* SSTItem.m */,
+				261E57721916F1020044F496 /* SSTTableViewUpdater.h */,
+				261E57731916F1020044F496 /* SSTTableViewUpdater.m */,
 			);
 			path = TableMadness;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			files = (
 				263360F91826CDCF00D18300 /* main.m in Sources */,
 				2669D49618286271003F0698 /* SSTItem.m in Sources */,
+				261E57741916F1020044F496 /* SSTTableViewUpdater.m in Sources */,
 				263360FD1826CDCF00D18300 /* SSTAppDelegate.m in Sources */,
 				263361031826CDCF00D18300 /* SSTViewController.m in Sources */,
 			);
