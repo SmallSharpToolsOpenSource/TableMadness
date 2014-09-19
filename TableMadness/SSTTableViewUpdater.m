@@ -73,21 +73,34 @@
 #pragma mark - Private
 #pragma mark -
 
+#define kEnableProtections 1
+
 - (void)processUpdate {
-    static NSString *lock = @"LOCK";
-    
     NSCAssert(self.tableView, @"Outlet is required");
     NSCAssert(self.tableViewUpdaterDelegate, @"Outlet is required");
     
+#ifdef kEnableProtections
+    static NSString *lock = @"LOCK";
+    
     @synchronized(lock) {
         if (self.isTableViewUpdating) {
+            DebugLog(@"Deferring update while already updating");
             return;
         }
-        
+    
         if (self.updatedTableData.count) {
             [self runUpdate];
         }
     }
+#else
+    if (self.isTableViewUpdating) {
+        DebugLog(@"Updating table without protections");
+    }
+    
+    if (self.updatedTableData.count) {
+        [self runUpdate];
+    }
+#endif
 }
 
 - (void)runUpdate {
